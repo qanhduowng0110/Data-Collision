@@ -27,10 +27,10 @@ contract Attackproxy {
     address public owner;
     uint public num;
 
-    proxy public proxy;
+    Proxy public proxy;
 
     constructor(proxy _proxy) {
-        proxy = proxy(_proxy);
+        proxy = Proxy(_proxy);
     }
 
     function attack() public {
