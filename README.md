@@ -4,3 +4,5 @@ delegatecall hiểu đơn giản là lấy logic function của một contract k
 ## address(impl).delegatecall(data) ##
 được sử dụng để có thể update code cho các contract mà không cần phải thay đổi hay setup lại địa chỉ proxy
 
+# Storage Collision xảy ra khi thứ tự sắp xếp của các slot biến của 2 contract proxy và impl không giống nhau
+Ví dụ như contracts.sol thì 
