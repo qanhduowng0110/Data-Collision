@@ -6,7 +6,7 @@ contract Impl {
     }
 }
 
-contract proxy {
+contract Proxy {
     address public impl;
     address public owner;
     uint public num;
